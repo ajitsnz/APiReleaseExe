@@ -1,0 +1,1120 @@
+{
+	"info": {
+		"_postman_id": "1c22c585-ead2-42af-b830-dcbd9cd692cf",
+		"name": "APITesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TokenGenerator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var token = jsonData.document.accessToken;\r",
+							"postman.setEnvironmentVariable(\"token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"admin\",\n\"password\":\"admin123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/token",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\":\"\",\"city\":\"\",\"country\":\"\",\"zip\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\":\"\",\"city\":\"\",\"country\":\"\",\"zip\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - GetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/?page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - GetById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/search?searchKey=abc&page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchKey",
+							"value": "abc"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\":\"\",\"city\":\"\",\"country\":\"\",\"zip\":\"\",\"id\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\":\"\",\"lastname\":\"\",\"addressid\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\":\"\",\"lastname\":\"\",\"addressid\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - GetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/?page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - GetById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/search?searchKey=abc&page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchKey",
+							"value": "abc"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\":\"\",\"lastname\":\"\",\"addressid\":\"\",\"id\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\":\"\",\"city\":\"\",\"country\":\"\",\"zip\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\":\"\",\"city\":\"\",\"country\":\"\",\"zip\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - GetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/?page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - GetById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/search?searchKey=abc&page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchKey",
+							"value": "abc"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address - Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\":\"\",\"city\":\"\",\"country\":\"\",\"zip\":\"\",\"id\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/address/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"address",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\":\"\",\"lastname\":\"\",\"addressid\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\":\"\",\"lastname\":\"\",\"addressid\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - GetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/?page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - GetById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/search?searchKey=abc&page=1&itemsPerPage=100",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchKey",
+							"value": "abc"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "itemsPerPage",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee - Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\":\"\",\"lastname\":\"\",\"addressid\":\"\",\"id\":\"\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/{{APIBaseString}}/employee/1",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"{{APIBaseString}}",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
